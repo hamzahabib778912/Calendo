@@ -18,11 +18,17 @@ export class VisualizeAppointmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.selectedAppointment = JSON.parse(this.savingDataService.getDate(this._data.date)!);
-    this.selectedAppointment.Date = new Date(this.selectedAppointment.Date);
-    this.endTime = new Date(this.selectedAppointment.Date);
-    this.endTime = new Date(this.endTime.setMinutes(this.selectedAppointment.Date.getMinutes() + this.selectedAppointment.Duration));
-    this.hour = this._data.hour.split(" ")[1];
+    // Try to retrieve the appointment using the cleaned key
+    const appointment = this.savingDataService.getDate(this._data.date);
+    if (appointment) {
+      this.selectedAppointment = appointment;
+      this.selectedAppointment.Date = new Date(this.selectedAppointment.Date);
+      this.endTime = new Date(this.selectedAppointment.Date);
+      this.endTime = new Date(this.endTime.setMinutes(this.endTime.getMinutes() + this.selectedAppointment.Duration));
+      this.hour = this._data.hour.split(" ")[1];
+    } else {
+      console.log('No appointment found for the given date key');
+    }
   }
 
   DeleteAppointment() {

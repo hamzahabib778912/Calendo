@@ -6,6 +6,8 @@ import { ManageDateService } from 'src/app/services/saving-date-service.service'
 import { CreateAppointmentComponent } from '../create-appointment/create-appointment.component';
 import { VisualizeAppointmentComponent } from '../visualize-appointment/visualize-appointment.component';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { map } from 'rxjs';
+import { AppointmentsListViewComponent } from '../appointments-list-view/appointments-list-view.component';
 
 @Component({
   selector: 'app-calendar',
@@ -16,7 +18,7 @@ export class CalendarComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   selectedDate: Date | undefined;
   dataSource: AppointmentTable[] = [
-    {Hour: "0 AM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
+    {Hour: "12 AM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
     {Hour: "1 AM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
     {Hour: "2 AM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
     {Hour: "3 AM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
@@ -28,7 +30,7 @@ export class CalendarComponent implements OnInit {
     {Hour: "9 AM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
     {Hour: "10 AM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
     {Hour: "11 AM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
-    {Hour: "0 PM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
+    {Hour: "12 PM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
     {Hour: "1 PM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
     {Hour: "2 PM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
     {Hour: "3 PM", Appointment: {Title: '', Date: new Date, Duration: 0, Description: ''}},
@@ -66,29 +68,29 @@ export class CalendarComponent implements OnInit {
   }
 
   updateView() {
-    // Reset the dataSource
-    this.dataSource.forEach(element => {
-      element.Appointment = {
-        Title: '',
-        Date: new Date(),
-        Duration: 0,
-        Description: ''
-      };
-    });
+    if (!this.selectedDate) return;
 
-    // Populate the dataSource with existing appointments from the service
-    this.dataSource.forEach(element => {
-      const storedAppointment = this.dateManager.getDate(`${this.selectedDate?.toISOString()}${element.Hour}`);
-      if (storedAppointment) {
-        element.Appointment = JSON.parse(storedAppointment);
-      }
+    // Fetch appointments from the service
+    this.dateManager.appointments$.pipe(
+      map(appointmentsMap => {
+        // Populate the dataSource with existing appointments from the service
+        return this.dataSource.map(element => {
+          const storedAppointment = appointmentsMap.get(`${this.selectedDate?.toISOString()}${element.Hour}`);
+          return {
+            ...element,
+            Appointment: storedAppointment || { Title: '', Date: new Date(), Duration: 0, Description: '' }
+          };
+        });
+      })
+    ).subscribe(updatedDataSource => {
+      this.dataSource = updatedDataSource;
+      // Notify Angular that the data source has changed
+      this.table.renderRows();
     });
-
-    // Notify Angular that the data source has changed
-    this.table.renderRows();
   }
 
-  drag(event: CdkDragDrop<AppointmentTable[]>) {
+
+drag(event: CdkDragDrop<AppointmentTable[]>) {
     const previousIndex = event.previousIndex;
     const currentIndex = event.currentIndex;
 
@@ -142,7 +144,9 @@ export class CalendarComponent implements OnInit {
         hour: app
       },
       width: "750px",
-      height: "auto"
+      height: "auto",
+      enterAnimationDuration:"500ms",
+      exitAnimationDuration: "500ms"
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -158,10 +162,24 @@ export class CalendarComponent implements OnInit {
         date: dateKey, // Pass the formatted date key
         hour: app
       },
+      enterAnimationDuration:"500ms",
+      exitAnimationDuration: "500ms"
     });
 
     dialogRef.afterClosed().subscribe(() => {
       this.updateView();
+    });
+  }
+
+  openAppointmentsPopup() {
+    const dialogRef =  this.dialog.open(AppointmentsListViewComponent, {
+      data: { selectedDate: this.selectedDate },
+      width: '600px',
+      height: 'auto'
+    });
+
+    dialogRef.componentInstance.closeDialog.subscribe(() => {
+      dialogRef.close();  // Close the dialog when the close button is clicked
     });
   }
 

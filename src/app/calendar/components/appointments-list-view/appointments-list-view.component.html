@@ -1,0 +1,39 @@
+<div class="dialog-header">
+  <h2>Appointments for {{ selectedDate | date: 'fullDate' }}</h2>
+  <button mat-icon-button (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+
+<div *ngIf="appointments$ | async as appointments; else noAppointments">
+  <mat-table [dataSource]="appointments">
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-cell *matCellDef="let appointment">{{ appointment.Title }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
+      <mat-cell *matCellDef="let appointment">{{ appointment.Date | date: 'shortTime' }}</mat-cell>
+    </ng-container>
+
+     <!-- Description Column -->
+     <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell *matCellDef="let appointment">{{ appointment.Description }}</mat-cell>
+    </ng-container>
+
+    <!-- Duration Column -->
+    <ng-container matColumnDef="duration">
+      <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
+      <mat-cell *matCellDef="let appointment">{{ appointment.Duration }} mins</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['title', 'time','description', 'duration']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['title', 'time','description', 'duration'];"></mat-row>
+  </mat-table>
+</div>
+<ng-template #noAppointments>
+  <p>No appointments found for the selected date.</p>
+</ng-template>

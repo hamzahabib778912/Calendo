@@ -25,5 +25,11 @@
   </div>
 
   <!-- Add Button -->
-  <button class="add-button" mat-button (click)="openDialogCreate()">+</button>
+  <div>
+    <button class="add-button" mat-button (click)="openDialogCreate()">+</button>
+    <button class="list-button" mat-button (click)="openAppointmentsPopup()">
+      <mat-icon style="margin-bottom: 7px;">list</mat-icon>
+    </button>
+  </div>
+  <!-- (click)="openAppointmentsPopup()" -->
 </div>

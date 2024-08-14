@@ -11,12 +11,15 @@ import { VisualizeAppointmentComponent } from './components/visualize-appointmen
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
+import { AppointmentsListViewComponent } from './components/appointments-list-view/appointments-list-view.component';
 
 @NgModule({
   declarations: [
     CalendarComponent,
     CreateAppointmentComponent,
-    VisualizeAppointmentComponent
+    VisualizeAppointmentComponent,
+    AppointmentsListViewComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +30,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatDialogModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    DragDropModule
+    DragDropModule,
+    MatIconModule
   ]
 })
 export class CalendarModule { }

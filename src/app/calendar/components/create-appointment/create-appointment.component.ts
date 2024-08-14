@@ -55,7 +55,7 @@ export class CreateAppointmentComponent {
       const [hourValue, period] = hour.split(' ');
       fullDate.setHours(period === 'PM' ? parseInt(hourValue) + 12 : parseInt(hourValue));
     }
-
+    fullDate.setMinutes(0, 0, 0);
     // Save the appointment in the service
     this.savingDateService.saveDate(date.toISOString() + (appointment.Time || hour), {
       ...appointment,
