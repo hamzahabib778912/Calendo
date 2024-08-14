@@ -1,0 +1,136 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+}
+
+.calendar-section {
+  flex: 0 0 300px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.calendar-card {
+  width: 100%;
+}
+
+.table-section {
+  flex: 1;
+}
+
+.table-section .mat-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell, td.mat-cell {
+  text-align: center;
+  padding: 8px;
+}
+
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type {
+  min-width: 120px;
+}
+
+.dialogButton {
+  background-color: #4caf50; /* Soft green color */
+  border: none;
+  border-radius: 8px; /* Slightly more rounded corners */
+  color: white;
+  height: 35px; /* Slightly larger height for better clickability */
+  width: 160px; /* Slightly wider button */
+  cursor: pointer;
+  margin: 4px; /* More margin for better spacing */
+  padding: 0 16px; /* Extra padding for a more comfortable click area */
+  font-size: 14px; /* Adjust font size for readability */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.dialogButton:hover {
+  background-color: #45a049; /* Slightly darker green for hover effect */
+}
+
+.dialogButton:active {
+  background-color: #388e3c; /* Even darker green for active effect */
+}
+
+.dialogButton.create {
+  background-color: #f5f5f5; /* Soft gray background */
+  color: #333; /* Dark text color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.dialogButton.create:hover {
+  background-color: #e0e0e0; /* Slightly darker gray for hover effect */
+}
+
+.dialogButton.create:active {
+  background-color: #bdbdbd; /* Even darker gray for active effect */
+}
+.add-button {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #34a853;
+  color: white;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.add-button:hover {
+  background-color: #2c8e41;
+}
+
+/* Adding styles for calendar*/
+
+::ng-deep .mat-calendar {
+  /* General calendar styling */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+::ng-deep .mat-calendar-header {
+  background-color: #4a90e2; /* Change the header background color */
+  color: #fff; /* Change the header text color */
+}
+
+::ng-deep .mat-calendar-body-selected {
+  background-color: #2c8e41;;
+}
+
+::ng-deep .mat-calendar-header .mat-calendar-controls {
+  color: #fff; /* Change control button colors */
+}
+
+::ng-deep .mat-calendar-body {
+  background-color: #f0f4f8; /* Change the calendar body background color */
+}
+
+::ng-deep .mat-calendar-body-cell {
+  border-radius: 4px;
+  padding: 8px;
+}
+
+::ng-deep .mat-calendar-body-cell.selected {
+  background-color: #4a90e2; /* Change the background color of the selected date */
+  color: #fff; /* Change the text color of the selected date */
+}
+
+::ng-deep .mat-calendar-body-cell:hover {
+  background-color: #e1e8f0; /* Change the hover background color */
+}
+
+::ng-deep .mat-calendar-body-cell.disabled {
+  color: #b0b0b0; /* Change the color of disabled dates */
+}

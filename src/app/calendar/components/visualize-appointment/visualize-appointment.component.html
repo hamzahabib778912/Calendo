@@ -1,0 +1,12 @@
+<div class="dialog-header">
+  <h1 class="dialog-title">{{selectedAppointment.Title}}</h1>
+</div>
+<mat-dialog-content class="dialog-content">
+  <p class="info">Begins at: <span>{{selectedAppointment.Date.toLocaleString()}} {{hour}}</span></p>
+  <p class="info">Ends at: <span>{{endTime.toLocaleString()}} {{hour}}</span></p>
+  <p class="description">Description: <br><span>{{selectedAppointment.Description}}</span></p>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions">
+  <button class="btn-delete" mat-button mat-dialog-close (click)="DeleteAppointment()">Delete</button>
+  <button class="btn-ok" mat-button mat-dialog-close>OK</button>
+</mat-dialog-actions>

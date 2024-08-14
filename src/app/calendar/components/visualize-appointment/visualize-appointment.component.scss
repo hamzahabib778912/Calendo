@@ -1,0 +1,80 @@
+.dialog-header {
+  background-color: #f1f3f4;
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.dialog-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #202124;
+  margin: 0;
+}
+
+.dialog-content {
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.info {
+  font-size: 16px;
+  color: #5f6368;
+  margin: 8px 0;
+}
+
+.info span {
+  font-weight: 500;
+}
+
+.description {
+  font-size: 16px;
+  color: #202124;
+}
+
+.description span {
+  font-weight: 400;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f1f3f4;
+}
+
+.btn-delete,
+.btn-ok {
+  min-width: 80px;
+  padding: 8px 16px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  margin-left: 8px;
+}
+
+.btn-delete {
+  background-color: #e53935;
+  color: white;
+}
+
+.btn-ok {
+  background-color: #34a853;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c62828;
+}
+
+.btn-ok:hover {
+  background-color: #2c8e41;
+}
+
+::ng-deep .mat-dialog-container {
+  max-width: 450px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
